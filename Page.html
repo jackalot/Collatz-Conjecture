@@ -4,6 +4,65 @@
 	<title>Collatz Conjecture</title>
 </head>
 <body>
+<input type="text" id="Number" value="Insert a number greater than 1"></input>
+<button class="Submit">Submit Number</button>
+<p>Insert a number greater than 1 in the box above, and the blow text will show the steps required for it to equal 1</p>
+<p id="Results"> results</p>
+<script type="text/javascript">
+	const SubmitBtn = document.querySelector(".Submit");
+	SubmitBtn.addEventListener("click", () => {
+		let _Submit = Submit();
+	})
+	function Submit() 
+	{
+		let num = document.getElementById("Number").value;
+		MakeItEqualToOne(num, " "); // send an empty string to not mess up results
+	}
 
+	function MakeItEqualToOne(_input, _Operation)
+	{
+
+		console.log(`${_input}: ${_Operation}`);
+		if(_input != 1)
+		{
+			if(_input % 2 === 0)
+			{
+				let even = _input / 2;
+				let EvenString = `${_input} / 2`;
+				MakeItEqualToOne(even, EvenString);
+				SendText(_input, _Operation, even, EvenString);
+			}
+			else if(_input % 2 !== 0)
+			{
+				let odd = _input * 3 + 1;
+				let Oddstring = `${_input} * 3 + 1`;
+				MakeItEqualToOne(odd, Oddstring);
+				SendText(_input, _Operation, odd, Oddstring);
+			}
+
+		}
+		if(_input == 1)
+		{
+
+			SendText(1);
+		}
+	}
+	function SendText (_input, Before, _Output, After)
+	{
+		if(_input != 1)
+		{
+		//console.log(text);
+		let newText = `<br> input: ${_input} Before: ${Before},
+		 Output: ${_Output} After: ${After}`
+		+ `, `;
+		document.getElementById("Results").innerHTML += newText;
+		}
+		else
+		{
+			let lastText = `<br> It now Equals 1!`;
+			document.getElementById("Results").innerHTML += lastText;
+		}
+	}
+</script>
 </body>
 </html>
